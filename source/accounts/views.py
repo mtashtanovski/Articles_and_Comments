@@ -1,15 +1,37 @@
 from django.contrib.auth import authenticate, login, logout, get_user_model, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, UpdateView
 
 from accounts.forms import MyUserCreationForm, UserUpdateForm, ProfileUpdateForm, PasswordChangeForm
 from accounts.models import Profile
-
+from webapp.models import Article
 
 User = get_user_model()
+
+
+@login_required
+def like(request):
+    if request.POST.get('action') == 'post':
+        result = ''
+        pk = int(request.POST.get('articlepk'))
+        article = get_object_or_404(Article, pk=pk)
+        if article.likes.filter(id=request.user.id).exists():
+            article.likes.remove(request.user)
+            article.like_count -= 1
+            result = article.like_count
+            article.save()
+        else:
+            article.likes.add(request.user)
+            article.like_count += 1
+            result = article.like_count
+            article.save()
+
+        return JsonResponse({'result': result, })
 
 
 class RegisterView(CreateView):

@@ -29,6 +29,13 @@ class Article(BaseModel):
         default=1,
         verbose_name="Автор",
     )
+    likes = models.ManyToManyField(
+        User,
+        related_name='like',
+        default=None,
+        blank=True
+    )
+    like_count = models.BigIntegerField(default='0')
 
     def get_absolute_url(self):
         return reverse('webapp:article_view', kwargs={'pk': self.pk})
@@ -66,10 +73,12 @@ class Comment(BaseModel):
         on_delete=models.CASCADE,
         verbose_name="Автор"
     )
-    article = models.ForeignKey("webapp.Article", on_delete=models.CASCADE,
-                                related_name="comments",
-                                verbose_name="Статья",
-                                )
+    article = models.ForeignKey(
+        "webapp.Article",
+        on_delete=models.CASCADE,
+        related_name="comments",
+        verbose_name="Статья",
+    )
 
     class Meta:
         db_table = 'comments'
