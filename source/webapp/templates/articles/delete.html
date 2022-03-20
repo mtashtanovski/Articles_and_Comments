@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form method="POST">
+    {% csrf_token %}
+        <h2>Введите название статьи {{ article.title }}</h2>
+        {% include 'partial/form.html' with button_text="Удалить" %}
+    </form>
+    <a href="{% url "webapp:article_view" article.pk %}">Нет</a>
+{% endblock %}
