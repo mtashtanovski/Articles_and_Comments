@@ -45,3 +45,11 @@ body {
     text-align: center;
     border: solid 1px gray;
 }
+
+/*.icon-social {*/
+/*	margin: 20px 15px;*/
+/*}*/
+
+.icon-social:hover {
+	color: #ff4c68
+}

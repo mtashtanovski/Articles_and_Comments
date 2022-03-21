@@ -79,6 +79,13 @@ class Comment(BaseModel):
         related_name="comments",
         verbose_name="Статья",
     )
+    comment_likes = models.ManyToManyField(
+        User,
+        related_name='comment_like',
+        default=None,
+        blank=True
+    )
+    comment_like_count = models.BigIntegerField(default='0')
 
     class Meta:
         db_table = 'comments'

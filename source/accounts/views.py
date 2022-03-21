@@ -9,7 +9,7 @@ from django.views.generic import CreateView, DetailView, UpdateView
 
 from accounts.forms import MyUserCreationForm, UserUpdateForm, ProfileUpdateForm, PasswordChangeForm
 from accounts.models import Profile
-from webapp.models import Article
+from webapp.models import Article, Comment
 
 User = get_user_model()
 
@@ -30,6 +30,26 @@ def like(request):
             article.like_count += 1
             result = article.like_count
             article.save()
+
+        return JsonResponse({'result': result, })
+
+
+@login_required
+def comment_like(request):
+    if request.POST.get('action') == 'post':
+        result = ''
+        pk = int(request.POST.get('commentpk'))
+        comment = get_object_or_404(Comment, pk=pk)
+        if comment.comment_likes.filter(id=request.user.id).exists():
+            comment.comment_likes.remove(request.user)
+            comment.comment_like_count -= 1
+            result = comment.comment_like_count
+            comment.save()
+        else:
+            comment.comment_likes.add(request.user)
+            comment.comment_like_count += 1
+            result = comment.comment_like_count
+            comment.save()
 
         return JsonResponse({'result': result, })
 

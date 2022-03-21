@@ -52,7 +52,22 @@
         <span>{{ forloop.counter }}</span>
         <p>{{ comment.author }}</p>
         <p>{{ comment.content }}</p>
-
+        {% if user.is_authenticated %}
+        <div class="pr-2">
+          <span class="" id="comment_like_count">Likes - {{comment.comment_like_count}}</span>
+          <button class="btn btn-link text-dark p-0 border-0 btn-outline-light" id="comment-like-button" value="{{comment.pk}}">
+            <i class="icon-social fas fa-heart fa-2x"></i>
+          </button>
+        </div>
+        {% else %}
+            <div class="pr-2">
+              <span class="" id="comment_like_count"> Likes - {{comment.comment_like_count}}</span>
+              <a href="{% url 'accounts:login' %}">
+                  Login to like
+              </a>
+            </div>
+        {% endif %}
+        <hr>
         {% if perms.webapp.change_comment or user == commnet.author %}
             <p><a href="{% url "webapp:comment_update_view" comment.pk %}">Изменить</a></p>
         {% endif %}
@@ -60,6 +75,7 @@
         {% if perms.webapp.delete_comment or user == commnet.author %}
             <p><a href="{% url "webapp:comment_delete_view" comment.pk %}">Удалить</a></p>
         {% endif %}
+        <hr style="border: dashed">
     {% endfor %}
 
 
@@ -70,7 +86,6 @@
     {% endfor %}
 
     <script type="text/javascript">
-
       $(document).on('click', '#like-button', function (e) {
         e.preventDefault();
         $.ajax({
@@ -84,6 +99,27 @@
           success: function (json) {
             document.getElementById("like_count").innerHTML = "<span>Likes - </span>" ;
             document.getElementById("like_count").innerHTML += json['result']
+            console.log(json)
+          },
+          error: function (xhr, errmsg, err) {
+
+          }
+        });
+      })
+
+      $(document).on('click', '#comment_like-button', function (e) {
+        e.preventDefault();
+        $.ajax({
+          type: 'POST',
+          url: '{% url "accounts:comment-like" %}',
+          data: {
+            commentpk: $('#comment-like-button').val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+          },
+          success: function (json) {
+            document.getElementById("comment_like_count").innerHTML = "<span>Likes - </span>" ;
+            document.getElementById("comment_like_count").innerHTML += json['result']
             console.log(json)
           },
           error: function (xhr, errmsg, err) {
