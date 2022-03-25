@@ -31,11 +31,8 @@ class Article(BaseModel):
     )
     likes = models.ManyToManyField(
         User,
-        related_name='like',
-        default=None,
-        blank=True
+        related_name='liked_articles',
     )
-    like_count = models.BigIntegerField(default='0')
 
     def get_absolute_url(self):
         return reverse('webapp:article_view', kwargs={'pk': self.pk})
@@ -79,13 +76,10 @@ class Comment(BaseModel):
         related_name="comments",
         verbose_name="Статья",
     )
-    comment_likes = models.ManyToManyField(
+    likes = models.ManyToManyField(
         User,
-        related_name='comment_like',
-        default=None,
-        blank=True
+        related_name='liked_comments',
     )
-    comment_like_count = models.BigIntegerField(default='0')
 
     class Meta:
         db_table = 'comments'
