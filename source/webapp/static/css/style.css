@@ -53,3 +53,7 @@ body {
 .icon-social:hover {
 	color: #ff4c68
 }
+
+.invisible {
+    display: none;
+}
