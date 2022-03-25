@@ -12,6 +12,4 @@ urlpatterns = [
     path('registration/', RegisterView.as_view(), name="registration"),
     path("update/", UpdateUserView.as_view(), name="update-user"),
     path("change-password/", UserPasswordChangeView.as_view(), name="change-password"),
-    path("like/", views.like, name='like'),
-    path("comment_like/", views.comment_like, name='comment-like')
 ]
