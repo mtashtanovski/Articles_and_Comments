@@ -3,7 +3,7 @@ from rest_framework import serializers
 from webapp.models import Article
 
 
-class ArticleSerializer(serializers.Serializer):
+class ArticleSimpleSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(
         required=True,
@@ -31,4 +31,11 @@ class ArticleSerializer(serializers.Serializer):
         instance.save()
 
         return instance
+
+
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = ('id', 'title', 'content', 'author_id')
+        read_only_fields = ('id', 'author_id')
 
