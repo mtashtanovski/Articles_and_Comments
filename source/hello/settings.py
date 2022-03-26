@@ -37,10 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 
     # Custom apps
     'webapp',
-    'accounts'
+    'accounts',
+
+    'api_v2',
 
     # Lib apps
 ]

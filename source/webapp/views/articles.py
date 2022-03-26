@@ -58,6 +58,7 @@ class ArticleUpdateView(PermissionRequiredMixin, UpdateView):
 
 
 class ArticleDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = "webapp.change_article"
     model = Article
     template_name = "articles/delete.html"
     success_url = reverse_lazy('webapp:index')
@@ -68,6 +69,9 @@ class ArticleDeleteView(PermissionRequiredMixin, DeleteView):
         if self.request.method == "POST":
             kwargs['instance'] = self.object
         return kwargs
+
+    def has_permission(self):
+        return super().has_permission() or self.request.user == self.get_object().author
 
 
 class ArticleLikeView(LoginRequiredMixin, View):
