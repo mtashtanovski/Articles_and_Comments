@@ -1,7 +1,7 @@
 body {
-    font-family: Arial, sans-serif;
-    background: rgb(222, 240, 204);
-    color: #222222;
+    font-family: "Droid Sans", sans-serif;
+    background: #f9f7f3;
+    color: #0fa3b1;
 }
 
 .pagination {
@@ -10,26 +10,27 @@ body {
 
 .pagination a, .pagination .page-disabled {
     display: inline-block;
-    border: solid 1px #6a7ddd;
+    border: solid 1px #eddea4;
     border-radius: 3px;
     padding: 5px;
     margin: 3px;
 }
 
 .pagination a {
-    background: #6a7ddd;
-    color: white;
+    background: #eddea4;
+    color: #222222;
     text-decoration: none;
 }
 
 .pagination a:hover {
-    background: #6a7dff;
+    background: #b5e2fa;
     text-decoration: underline;
+    color: #222222;
 }
 
 .pagination .page-disabled {
-    background: #6a7dcc;
-    color: #dddddd
+    background: #eddea4;
+    color: #f9f7f3;
 }
 
 .pagination .current-page {
