@@ -4,6 +4,7 @@ from http import HTTPStatus
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
+from rest_framework import status
 from rest_framework.exceptions import ValidationError
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -56,3 +57,29 @@ class ArticleSingleObjectView(APIView):
         return Response(
             data=serializer.data
         )
+
+    def get(self, request, *args, pk=None, **kwargs):
+        # Trying to get an article with necessary pk
+        try:
+            article = get_object_or_404(Article, pk=pk)
+        # If not found response with appropriate error
+        except Article.DoesNotExist as e:
+            return Response(data=e.detail, status=HTTPStatus.NOT_FOUND)
+        # If article object then serialize its data
+        serializer = self.serializer_class(article)
+        # Returning response as data
+        return Response(
+            data=serializer.data
+        )
+
+    def delete(self, request, *args, pk=None, **kwargs):
+        # Trying to get an article with necessary pk
+        try:
+            article = get_object_or_404(Article, pk=pk)
+        # If not found response with appropriate error
+        except Article.DoesNotExist as e:
+            return Response(data=e.detail, status=HTTPStatus.NOT_FOUND)
+
+        article.delete()
+        return Response(status=HTTPStatus.NO_CONTENT)
+
