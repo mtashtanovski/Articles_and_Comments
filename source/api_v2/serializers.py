@@ -39,3 +39,10 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'content', 'author_id')
         read_only_fields = ('id', 'author_id')
 
+
+class SingleArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = ('id', 'title', 'content', 'created_at', 'updated_at', 'author_id')
+        read_only_fields = ('id', 'author_id')
+

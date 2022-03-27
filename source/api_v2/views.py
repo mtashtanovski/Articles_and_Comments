@@ -9,7 +9,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from api_v2.serializers import ArticleSerializer
+from api_v2.serializers import ArticleSerializer, SingleArticleSerializer
 from webapp.models import Article
 
 
@@ -66,7 +66,7 @@ class ArticleSingleObjectView(APIView):
         except Article.DoesNotExist as e:
             return Response(data=e.detail, status=HTTPStatus.NOT_FOUND)
         # If article object then serialize its data
-        serializer = self.serializer_class(article)
+        serializer = SingleArticleSerializer(article)
         # Returning response as data
         return Response(
             data=serializer.data
