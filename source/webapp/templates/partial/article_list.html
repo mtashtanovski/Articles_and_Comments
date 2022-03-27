@@ -6,19 +6,25 @@
 
 {% for article in articles %}
 
-    <h3>{{ article.upper }}</h3>
+    <h5>{{ article.upper }}</h5>
+    <p class="content-info">
+        {{ article.content | truncatechars:20}}
+    </p>
 
     {% include "partial/like_article.html" %}
-
-    <p><a href="{{ article.get_absolute_url }}">Подробнее...</a></p>
+    <div class="container detail-info">
+        <p class="detail-info"><a href="{{ article.get_absolute_url }}">Подробнее...</a></p>
 
     {% if perms.webapp.change_article or user == article.author %}
-        <p><a href="{% url "webapp:article_update_view" article.pk %}">Редактировать</a></p>
+        <p class="detail-info"><a href="{% url "webapp:article_update_view" article.pk %}">Редактировать</a></p>
     {% endif %}
 
     {% if perms.webapp.delete_article %}
-        <p><a href="{% url "webapp:article_delete_view" article.pk %}">Удалить</a></p>
+        <p class="detail-info"><a href="{% url "webapp:article_delete_view" article.pk %}">Удалить</a></p>
     {% endif %}
+    <hr>
+    </div>
+
 
 {% empty %}
     <p>Статьи не найдены...</p>

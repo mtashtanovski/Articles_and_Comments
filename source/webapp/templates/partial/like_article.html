@@ -1,14 +1,14 @@
 {% load static %}
 
-<div>
+<div class="container">
     {% if user.is_authenticated %}
         <p class="like-counter" id="like-counter-{{ article.pk }}">Лайкнуло: {{ article.likes.count }}</p>
         {% if user in article.likes.all %}
-            <a class="like-link" data-article-id="{{ article.pk }}" href="{% url "webapp:unlike_article" article.pk %}">Анлайк</a>
-            <a class="like-link invisible" data-article-id="{{ article.pk }}" href="{% url "webapp:like_article" article.pk %}">Лайк</a>
+            <a class="like-link" data-article-id="{{ article.pk }}" href="{% url "webapp:unlike_article" article.pk %}">&#129293;</a>
+            <a class="like-link invisible" data-article-id="{{ article.pk }}" href="{% url "webapp:like_article" article.pk %}">&#10084;&#65039;</a>
         {% else %}
-            <a class="like-link invisible" data-article-id="{{ article.pk }}" href="{% url "webapp:unlike_article" article.pk %}">Анлайк</a>
-            <a class="like-link" data-article-id="{{ article.pk }}" href="{% url "webapp:like_article" article.pk %}">Лайк</a>
+            <a class="like-link invisible" data-article-id="{{ article.pk }}" href="{% url "webapp:unlike_article" article.pk %}">&#129293;</a>
+            <a class="like-link" data-article-id="{{ article.pk }}" href="{% url "webapp:like_article" article.pk %}">&#10084;&#65039;</a>
         {% endif %}
     {% endif %}
 </div>

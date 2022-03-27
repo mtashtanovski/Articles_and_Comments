@@ -41,11 +41,11 @@
 
         <hr>
         {% if perms.webapp.change_comment or user == commnet.author %}
-            <p><a href="{% url "webapp:comment_update_view" comment.pk %}">Изменить</a></p>
+            <p class="detail-info"><a href="{% url "webapp:comment_update_view" comment.pk %}">Изменить</a></p>
         {% endif %}
 
         {% if perms.webapp.delete_comment or user == commnet.author %}
-            <p><a href="{% url "webapp:comment_delete_view" comment.pk %}">Удалить</a></p>
+            <p class="detail-info"><a href="{% url "webapp:comment_delete_view" comment.pk %}">Удалить</a></p>
         {% endif %}
         <hr style="border: dashed">
     {% endfor %}

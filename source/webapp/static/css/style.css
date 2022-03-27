@@ -47,14 +47,40 @@ body {
     border: solid 1px gray;
 }
 
-/*.icon-social {*/
-/*	margin: 20px 15px;*/
-/*}*/
-
-.icon-social:hover {
-	color: #ff4c68
-}
-
 .invisible {
     display: none;
+}
+
+div.detail-info {
+    margin: 10px;
+    padding: 0;
+}
+
+p.detail-info {
+    display: inline;
+    word-wrap: break-word;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 1px 10px;
+}
+
+p.detail-info:hover {
+    background-color: #f3bfa2;
+}
+
+
+p > a {
+    text-decoration: none;
+}
+
+p.content-info {
+    color: #222222;
+}
+
+a.like-link {
+    text-decoration: none;
+}
+
+a.like-link:hover {
+    padding: 5px;
 }
